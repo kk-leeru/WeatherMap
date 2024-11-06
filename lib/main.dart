@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:io' as io;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
@@ -17,25 +18,39 @@ import 'services/geolocation_service.dart';
 import 'package:geocoding/geocoding.dart';
 import 'ggl_boundary_region.dart';
 import 'package:http/http.dart' as http;
+import 'dart:js' as js;
 // import GoogleMaps;
 
 Future<void> main() async {
   logger.i("Run app entry");
-  await dotenv.load(fileName: "assets/.env");
-  if (dotenv.env['GGL_MAP_API_KEY'] == null) {
-    throw Exception("GGL_MAP_API_KEY not found in .env file");
+
+  if (kIsWeb) {
+    String apiKey = js.context['API_KEY'];
+    logger.t("APIKEY: $apiKey");
+    runApp(MyApp(gglMapApiKey: apiKey));
+
+  } else if (io.Platform.isAndroid) {
+    await dotenv.load(fileName: "assets/.env");
+    if (dotenv.env['GGL_MAP_API_KEY'] == null) {
+      throw Exception("GGL_MAP_API_KEY not found in .env file");
+    }
+    final String gglMapApiKey = dotenv.env['GGL_MAP_API_KEY'] ?? '';
+    runApp(MyApp(gglMapApiKey: gglMapApiKey));
+  } else if (io.Platform.isIOS) {
+    final String gglMapApiKey = dotenv.env['GGL_MAP_API_KEY'] ?? '';
+    runApp(MyApp(
+      gglMapApiKey: gglMapApiKey,
+    ));
   }
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key, required this.gglMapApiKey});
+  final String gglMapApiKey;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     logger.i('Build home page');
-    final String gglMapApiKey = dotenv.env['GGL_MAP_API_KEY'] ?? '';
     // final String gglMapApiKey = dotenv.get('GGL_MAP_API_KEY');
 
     return MaterialApp(
@@ -259,7 +274,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // MyMarker(globalKey),
 
                 GoogleMap(
-                  key: Key(widget.gglMapApiKey),
+                  // key: Key(widget.gglMapApiKey),
                   gestureRecognizers: <Factory<OneSequenceGestureRecognizer>>[
                     new Factory<OneSequenceGestureRecognizer>(
                       () => new EagerGestureRecognizer(),
