@@ -18,26 +18,28 @@ import 'services/geolocation_service.dart';
 import 'package:geocoding/geocoding.dart';
 import 'ggl_boundary_region.dart';
 import 'package:http/http.dart' as http;
-import 'dart:js' as js;
+// import 'dart:js' as js;
 // import GoogleMaps;
 
 Future<void> main() async {
   logger.i("Run app entry");
 
+  final String dummy = 'abcdefg';
+  final String gglMapApiKey = dummy;
+  final String apiKey = dummy;
   if (kIsWeb) {
-    String apiKey = js.context['API_KEY'];
-    logger.t("APIKEY: $apiKey");
+    // String apiKey = js.context['API_KEY'];
+    // logger.t("APIKEY: $apiKey");
     runApp(MyApp(gglMapApiKey: apiKey));
-
   } else if (io.Platform.isAndroid) {
-    await dotenv.load(fileName: "assets/.env");
-    if (dotenv.env['GGL_MAP_API_KEY'] == null) {
-      throw Exception("GGL_MAP_API_KEY not found in .env file");
-    }
-    final String gglMapApiKey = dotenv.env['GGL_MAP_API_KEY'] ?? '';
+    // // await dotenv.load(fileName: "assets/.env");
+    // // if (dotenv.env['GGL_MAP_API_KEY'] == null) {
+    // //   throw Exception("GGL_MAP_API_KEY not found in .env file");
+    // }
+    // final String gglMapApiKey = dotenv.env['GGL_MAP_API_KEY'] ?? '';
     runApp(MyApp(gglMapApiKey: gglMapApiKey));
   } else if (io.Platform.isIOS) {
-    final String gglMapApiKey = dotenv.env['GGL_MAP_API_KEY'] ?? '';
+    // final String gglMapApiKey = dotenv.env['GGL_MAP_API_KEY'] ?? '';
     runApp(MyApp(
       gglMapApiKey: gglMapApiKey,
     ));
