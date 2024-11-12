@@ -10,10 +10,12 @@ class WeatherService {
     //makes call to pyflask
     late WeatherInfo weather;
 
+    // final response = await http.get(Uri.parse(
+    //     'http://localhost:8080/get_weather?lat=${lat}&lng=${lng}'));
     final response = await http.get(Uri.parse(
-        'http://localhost:8080/get_weather?lat=${lat}&lng=${lng}'));
+        'https://weather-kk.jojonosaur.us/get_weather?lat=${lat}&lng=${lng}'));
     logger.i(
-        "manul test pyflask: 'http://192.168.1.157:8080/get_weather?lat=${lat}&lng=${lng}");
+        "manul test pyflask: 'https://weather-kk.jojonosaur.us/get_weather?lat=${lat}&lng=${lng}");
 
     // var API_key = '38f33ed494f4d613172c435d00620a54';
     // final response = await http.get(Uri.parse(
