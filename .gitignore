@@ -47,3 +47,4 @@ app.*.map.json
 .env
 index.html
 /web/local.js 
+/android/app/src/main/AndroidManifest.xml 
