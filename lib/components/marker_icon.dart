@@ -93,12 +93,13 @@ class MarkerIcon {
       unit = unit * 2;
     } else if (io.Platform.isAndroid) {
       unit = unit * 5;
+    } else {
+      unit = unit * 3; 
     }
     // return await BitmapDescriptor.fromAssetImage(
     //     const ImageConfiguration(size: Size(32, 41)), path);
     logger.t("Unit: $unit");
-    final Uint8List markerIcon =
-        await getBytesFromAsset(path, (unit).toInt());
+    final Uint8List markerIcon = await getBytesFromAsset(path, (unit).toInt());
     return BitmapDescriptor.fromBytes(markerIcon);
     // return await BitmapDescriptor.fromAssetImage(
     //     ImageConfiguration(size: Size(32.0* unit, 41.0* unit)), path,);

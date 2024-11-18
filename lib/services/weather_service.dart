@@ -32,6 +32,8 @@ class WeatherService {
     } else {
       logger.e(
           "can't fetch from server. Status code: ${response.statusCode}, Body: ${response.body}");
+      weather = WeatherInfo(
+          temperature: 0.0, humidity: 0, forecast: "Error", weatherIcon: "01d");
     }
     return weather;
   }
