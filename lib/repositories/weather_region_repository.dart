@@ -23,6 +23,7 @@ class WeatherRegionRepository {
       // List<LatLng> boundaryCoords =
       //     convertCoordinates(streetInfo.geojson!.coordinates!);
       List<LatLng> boundaryCoords = convertCoordinates(streetInfo.geojson!);
+      logger.i("Somebody is here");
       //convert the street
       return weatherRegion = WeatherRegion(
         temperature: weatherInfo.temperature,
