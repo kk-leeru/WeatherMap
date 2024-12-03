@@ -90,7 +90,7 @@ class MarkerIcon {
         : SizeConfig.blockSizeVertical;
 
     if (kIsWeb) {
-      unit = unit * 2;
+      unit = unit;
     } else if (io.Platform.isAndroid) {
       unit = unit * 5;
     } else {

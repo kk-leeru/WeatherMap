@@ -24,7 +24,7 @@ class StreetService {
           throw Exception("getOpenStreet retrieved null");
         }
         logger.t("Check in getOpenStreet: ${street.geojson!.coordinates}");
-
+        logger.t("OSMID: ${street.osmId}"); 
         // m = {
         //   "osm_id": data['osm_id'],
         //   "geojson": data['geojson']['coordinates']
