@@ -24,3 +24,9 @@ script.async = true;
 script.defer = true;
 document.head.appendChild(script);
 ```
+
+.env
+```
+GGL_MAP_API_KEY=
+WEATHER_API_KEY=
+```
