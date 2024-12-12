@@ -12,8 +12,12 @@ class WeatherService {
 
     // final response = await http.get(Uri.parse(
     //     'http://localhost:8080/get_weather?lat=${lat}&lng=${lng}'));
+    // final response = await http.get(Uri.parse(
+    //     'https://weather-kk.jojonosaur.us/get_weather?lat=${lat}&lng=${lng}'));
     final response = await http.get(Uri.parse(
-        'https://weather-kk.jojonosaur.us/get_weather?lat=${lat}&lng=${lng}'));
+            'https://fastapi-1-79wt.onrender.com/weather?lat=${lat}&lng=${lng}'));
+
+        
     logger.i(
         "manul test pyflask: 'https://weather-kk.jojonosaur.us/get_weather?lat=${lat}&lng=${lng}");
 
