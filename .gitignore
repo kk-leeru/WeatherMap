@@ -45,5 +45,5 @@ app.*.map.json
 
 
 .env
-index.html
 /web/local.js 
+bfg-1.14.0.jar

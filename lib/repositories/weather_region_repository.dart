@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_application_1/models/street_info.dart';
 import 'package:flutter_application_1/models/weather_info.dart';
 import 'package:flutter_application_1/models/weather_region.dart';
@@ -17,9 +20,10 @@ class WeatherRegionRepository {
       WeatherInfo weatherInfo = await _weatherService.fetchWeather(lat, lng);
       StreetInfo streetInfo = await _streetService.getStreet(lat, lng);
 
-      List<LatLng> boundaryCoords =
-          convertCoordinates(streetInfo.geojson!.coordinates!);
-
+      // List<LatLng> boundaryCoords =
+      //     convertCoordinates(streetInfo.geojson!.coordinates!);
+      List<LatLng> boundaryCoords = convertCoordinates(streetInfo.geojson!);
+      logger.i("Somebody is here");
       //convert the street
       return weatherRegion = WeatherRegion(
         temperature: weatherInfo.temperature,
@@ -35,11 +39,55 @@ class WeatherRegionRepository {
     return weatherRegion;
   }
 
-  List<LatLng> convertCoordinates(dynamic geoJsonCoordinates) {
+  List<LatLng> convertCoordinates(Geojson geoJson) {
     late List<LatLng> boundaryCoords;
-    assert(geoJsonCoordinates is List<List<List<double>>>);
+    //List<dynamic> geoJsonCoordinates
+
+    // assert(geoJsonCoordinates is List<List<List<double>>>);
     try {
-      boundaryCoords = geoJsonCoordinates[0]
+      // var children = geoJsonCoordinates; //triple list
+      // var children = geoJsonCoordinates;
+      // logger.t("Q:${children[0].runtimeType}");
+      // logger.t("Q: ${children[0][0].runtimeType}"); //double list
+      // logger.t("Q: ${children[0][0][0].runtimeType}"); // list
+      // logger.t("Q: ${children[0][0][0][0].runtimeType}"); // double
+
+      // while (true) {
+      //   if (children.runtimeType is List<dynamic> && children[0].runtimeType is List<dynamic> &&
+      //       children[0][0].runtimeType is double) {
+      //     logger.t("done");
+      //     break;
+      //   }
+      //   children = children[0];
+      // }
+      late var currentLevel;
+      if (geoJson.type == 'MultiPolygon') {
+        currentLevel = geoJson.coordinates![0];
+      } else if (geoJson.type == 'Polygon') {
+        currentLevel = geoJson.coordinates!;
+      }
+      // currentLevel = geoJsonCoordinates;
+
+      // Drill down until we reach a List<List<double>> structure
+      // while (currentLevel.isNotEmpty && currentLevel[0] is List) {
+      //   // Check if we've reached the coordinate level (List<List<double>>)
+      //   if (currentLevel[0] is List && currentLevel[0][0] is double) {
+      //     break;
+      //   }
+      //   currentLevel = currentLevel[0];
+      // }
+      // while (true) {
+      //   logger.t("Check Children: ${children.runtimeType}");
+      //   if (children is List<dynamic>) {
+      //     if (children.isNotEmpty &&
+      //         children.every((element) => element is List<double>)) {
+      //       // logger.t("Children element Type: ${children[0].runtimeType}");
+      //       break;
+      //     }
+      //     children = children[0];
+      //   }
+      // }
+      boundaryCoords = currentLevel[0]
           .map((item) {
             if (item.length >= 2) {
               double lat_tmp = item[1];

@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 class StreetService {
   Future<StreetInfo> getStreet(double lat, double lng) async {
     // Map<String, dynamic> m = {};
-    late StreetInfo tmp;
+    late StreetInfo street;
     try {
       var zoom = 12;
       // 0-18 zoom
@@ -17,27 +17,28 @@ class StreetService {
           "manual test getOpenStreet: https://nominatim.openstreetmap.org/reverse?lat=$lat&lon=$lng&zoom=$zoom&polygon_geojson=1&format=json");
       if (response.statusCode == 200) {
         var data = json.decode(response.body);
-        tmp = StreetInfo.fromJson(data);
+        street = StreetInfo.fromJson(data);
 
         // logger.i("Boundary: ${data['geojson']['coordinates']}");
-        if (tmp.geojson?.coordinates == null) {
+        if (street.geojson?.coordinates == null) {
           throw Exception("getOpenStreet retrieved null");
         }
-        logger.t("Check in getOpenStreet: ${tmp.geojson!.coordinates}");
-
+        logger.t("Check in getOpenStreet: ${street.geojson!.coordinates}");
+        logger.t("OSMID: ${street.osmId}"); 
         // m = {
         //   "osm_id": data['osm_id'],
         //   "geojson": data['geojson']['coordinates']
         // };
         // return m;
-        return tmp;
+        return street;
         // return data['geojson']['coordinates'];
       } else {
         logger.e('cant get request for boundary');
+        street = StreetInfo();
       }
     } catch (e) {
       logger.e("Error at getOpenStreet: $e");
     }
-    return tmp;
+    return street;
   }
 }

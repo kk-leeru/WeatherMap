@@ -4,20 +4,22 @@
 FROM python:3.9-slim
 
 # Set the working directory for any following commands below
-WORKDIR /app
+WORKDIR /code
 
 # Copy the requirements file into the container
-COPY /backend/requirements.txt .
+COPY /backend/ver2/requirements.txt /code/requirements.txt
 
 # Install the dependencies
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
+# RUN pip install --upgrade pip
+RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 # Copy the rest of your application code into the container
 #. means copy into curr dir which is /app
-COPY ./backend/crawl.py /app/crawl.py
-COPY .env /app/.env 
+# COPY ./backend/fastAPI/restAPI.py /code/restAPI.py
+#COPY dir app 
+COPY ./backend/ver2/app /code/app
+COPY .env /code/.env 
 
 
 # Command to run the application
-CMD ["gunicorn", "-b", ":8080", "crawl:app"]
+CMD ["fastapi", "run", "app/restAPI.py", "--port", "80"]
