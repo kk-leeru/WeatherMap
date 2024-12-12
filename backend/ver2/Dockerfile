@@ -20,7 +20,7 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 # COPY ./backend/fastAPI/restAPI.py /code/restAPI.py
 #COPY dir app 
 COPY ./backend/ver2/app /code/app
-COPY .env /code/.env 
+# COPY .env /code/.env 
 
 
 # Command to run the application
