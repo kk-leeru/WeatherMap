@@ -132,11 +132,7 @@ class Address {
 
 class Geojson {
   String? type;
-<<<<<<< HEAD
   List<dynamic>? coordinates;
-=======
-  List<List>? coordinates;
->>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
 
   //constructor 
   Geojson({this.type, this.coordinates});
@@ -144,16 +140,10 @@ class Geojson {
   factory Geojson.fromJson(Map<String, dynamic> json) {
     return Geojson(
       type: json['type'],
-<<<<<<< HEAD
       // coordinates: List<List<List<double>>>.from(json['coordinates'].map(
       //     (item) => List<List<double>>.from(
       //         item.map((coord) => List<double>.from(coord))))),
       coordinates: json['coordinates']
-=======
-      coordinates: List<List<List<double>>>.from(json['coordinates'].map(
-          (item) => List<List<double>>.from(
-              item.map((coord) => List<double>.from(coord))))),
->>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
     );
   }
 

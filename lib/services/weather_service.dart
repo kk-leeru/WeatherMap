@@ -10,19 +10,12 @@ class WeatherService {
     //makes call to pyflask
     late WeatherInfo weather;
 
-<<<<<<< HEAD
     // final response = await http.get(Uri.parse(
     //     'http://localhost:8080/get_weather?lat=${lat}&lng=${lng}'));
     final response = await http.get(Uri.parse(
         'https://weather-kk.jojonosaur.us/get_weather?lat=${lat}&lng=${lng}'));
     logger.i(
         "manul test pyflask: 'https://weather-kk.jojonosaur.us/get_weather?lat=${lat}&lng=${lng}");
-=======
-    final response = await http.get(Uri.parse(
-        'http://localhost:8080/get_weather?lat=${lat}&lng=${lng}'));
-    logger.i(
-        "manul test pyflask: 'http://192.168.1.157:8080/get_weather?lat=${lat}&lng=${lng}");
->>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
 
     // var API_key = '38f33ed494f4d613172c435d00620a54';
     // final response = await http.get(Uri.parse(
@@ -39,11 +32,8 @@ class WeatherService {
     } else {
       logger.e(
           "can't fetch from server. Status code: ${response.statusCode}, Body: ${response.body}");
-<<<<<<< HEAD
       weather = WeatherInfo(
           temperature: 0.0, humidity: 0, forecast: "Error", weatherIcon: "01d");
-=======
->>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
     }
     return weather;
   }

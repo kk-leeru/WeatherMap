@@ -1,9 +1,6 @@
-<<<<<<< HEAD
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-=======
->>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
 import 'package:flutter_application_1/models/street_info.dart';
 import 'package:flutter_application_1/models/weather_info.dart';
 import 'package:flutter_application_1/models/weather_region.dart';
@@ -23,16 +20,10 @@ class WeatherRegionRepository {
       WeatherInfo weatherInfo = await _weatherService.fetchWeather(lat, lng);
       StreetInfo streetInfo = await _streetService.getStreet(lat, lng);
 
-<<<<<<< HEAD
       // List<LatLng> boundaryCoords =
       //     convertCoordinates(streetInfo.geojson!.coordinates!);
       List<LatLng> boundaryCoords = convertCoordinates(streetInfo.geojson!);
       logger.i("Somebody is here");
-=======
-      List<LatLng> boundaryCoords =
-          convertCoordinates(streetInfo.geojson!.coordinates!);
-
->>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
       //convert the street
       return weatherRegion = WeatherRegion(
         temperature: weatherInfo.temperature,
@@ -48,7 +39,6 @@ class WeatherRegionRepository {
     return weatherRegion;
   }
 
-<<<<<<< HEAD
   List<LatLng> convertCoordinates(Geojson geoJson) {
     late List<LatLng> boundaryCoords;
     //List<dynamic> geoJsonCoordinates
@@ -98,13 +88,6 @@ class WeatherRegionRepository {
       //   }
       // }
       boundaryCoords = currentLevel[0]
-=======
-  List<LatLng> convertCoordinates(dynamic geoJsonCoordinates) {
-    late List<LatLng> boundaryCoords;
-    assert(geoJsonCoordinates is List<List<List<double>>>);
-    try {
-      boundaryCoords = geoJsonCoordinates[0]
->>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
           .map((item) {
             if (item.length >= 2) {
               double lat_tmp = item[1];
