@@ -1,7 +1,9 @@
 #Run from root flutter_application_1 dir, exec 'docker build -f backend/Dockerfile -t weather-region .'
 
 # Use the official Python image from the Docker Hub
-FROM python:3.9-slim
+# FROM python:3.9-slim
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.8
+
 
 # Set the working directory for any following commands below
 WORKDIR /code
