@@ -42,9 +42,12 @@ dependencies:
   geocoding: ^3.0.0
   http: ^1.1.0
   flutter_dotenv: ^5.0.2
+<<<<<<< HEAD
   scale: ^0.0.6
   flutter_config: ^2.0.2
   pointer_interceptor: ^0.9.3+5
+=======
+>>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
 
 dev_dependencies:
   flutter_test:
