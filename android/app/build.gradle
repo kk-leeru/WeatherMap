@@ -24,19 +24,12 @@ if (flutterVersionName == null) {
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-<<<<<<< HEAD
 apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
 
 android {
     namespace "com.example.flutter_application_1"
     // compileSdkVersion flutter.compileSdkVersion
     compileSdkVersion 34
-=======
-
-android {
-    namespace "com.example.flutter_application_1"
-    compileSdkVersion flutter.compileSdkVersion
->>>>>>> 3a7cfcbd3123eee81dbf43c84e859265b748199a
     ndkVersion flutter.ndkVersion
 
     compileOptions {
