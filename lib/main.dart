@@ -311,7 +311,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         () => new EagerGestureRecognizer(),
                       ),
                     ].toSet(),
-                    mapType: MapType.hybrid,
+                    mapType: MapType.terrain,
                     initialCameraPosition:
                         CameraPosition(target: _currentPosition!, zoom: 17),
                     onMapCreated: (GoogleMapController controller) {
