@@ -61,10 +61,13 @@ class WeatherRegionRepository {
       //   children = children[0];
       // }
       late var currentLevel;
+      logger.t(geoJson.type);
       if (geoJson.type == 'MultiPolygon') {
         currentLevel = geoJson.coordinates![0];
       } else if (geoJson.type == 'Polygon') {
         currentLevel = geoJson.coordinates!;
+      } else {
+        logger.t("OUT OF CASE BOUND");
       }
       // currentLevel = geoJsonCoordinates;
 

@@ -51,7 +51,7 @@ class GeolocationService{
     // continue accessing the position of the device.
     try {
       Position position = await Geolocator.getCurrentPosition(
-          desiredAccuracy: LocationAccuracy.high);
+          desiredAccuracy: LocationAccuracy.medium);
       LatLng latlng = LatLng(position.latitude, position.longitude);
       return latlng;
     } catch (e) {

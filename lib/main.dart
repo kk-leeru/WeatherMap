@@ -19,6 +19,9 @@ import 'services/geolocation_service.dart';
 
 import 'package:geocoding/geocoding.dart';
 import 'package:http/http.dart' as http;
+// import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 // import 'dart:js' as js;
 // import GoogleMaps;
 
@@ -27,10 +30,20 @@ Future<void> main() async {
 
   final String dummy = 'abcdefg';
   final String gglMapApiKey = dummy;
-  final String apiKey = dummy;
+  String apiKey = dummy;
   if (kIsWeb) {
     // String apiKey = js.context['API_KEY'];
     // logger.t("APIKEY: $apiKey");
+    // await DotEnv.load(fileName: ".env");
+    logger.t("ENTER WEB");
+    await dotenv.load(fileName: ".env");
+    if (dotenv.env['GGL_MAP_API_KEY'] == null) {
+      throw Exception("GGL_MAP_API_KEY not found in .env file");
+    } else {
+      apiKey = dotenv.env['GGL_MAP_API_KEY']!;
+      logger.t("SHOW $apiKey");
+    }
+
     runApp(MyApp(gglMapApiKey: apiKey));
   } else if (io.Platform.isAndroid) {
     // // await dotenv.load(fileName: "assets/.env");
@@ -170,7 +183,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void addWeatherMarkerAndBoundary(LatLng position, bool myLocation) async {
     try {
-      
       late WeatherRegion weatherRegion;
       late BitmapDescriptor customIcon;
       try {
@@ -212,8 +224,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   logger.t("MARKER TOUCHED");
                   _selectRegion(weatherRegion.osmID.toString());
                 }
-              }
-              ),
+              }),
         );
         //update polygon
         _districtPolygons.add(
@@ -294,7 +305,6 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text("Weather Region"),
-          
         ),
         body: _isLoading
             ? const Center(
@@ -311,7 +321,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         () => new EagerGestureRecognizer(),
                       ),
                     ].toSet(),
-                    mapType: MapType.terrain,
+                    mapType: MapType.normal,
                     initialCameraPosition:
                         CameraPosition(target: _currentPosition!, zoom: 17),
                     onMapCreated: (GoogleMapController controller) {
@@ -344,7 +354,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         addWeatherMarkerAndBoundary(tapPosition, false);
                       }
                     },
-               
                   ),
                 ],
               ),
@@ -356,7 +365,6 @@ class _MyHomePageState extends State<MyHomePage> {
               padding: const EdgeInsets.all(8.0),
               child: PointerInterceptor(
                 child: FloatingActionButton(
-                  
                   onPressed: _goToMyLocation,
                   child: const Icon(Icons.add_location_alt_sharp),
                   // label: const Text('My location'),
@@ -388,16 +396,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   )
                 : PointerInterceptor(
-                  
-                  child: FloatingActionButton(
+                    child: FloatingActionButton(
                       // label: const Text('Delete Weather Region'),
                       onPressed: _toggleSelectionMode,
                       child: const Icon(Icons.highlight_remove),
                     ),
-                )
+                  )
           ],
-        )
-        );
+        ));
   }
 
   void _deleteSelectedRegions() {

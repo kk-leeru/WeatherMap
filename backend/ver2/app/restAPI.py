@@ -5,6 +5,8 @@ import requests
 import dotenv
 import os
 
+#adding new library, update requirements.txt 
+
 
 app = FastAPI()
 dotenv.load_dotenv()
